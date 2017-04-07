@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import atexit
 import sys
@@ -85,7 +85,7 @@ def main():
     docs["shortdesc"] = "Fence agent for ESXi"
     docs[
         "longdesc"] = "fence_ESXi is an I/O Fencing agent which can be used with VMware ESXi"
-    docs["vendorurl"] = "http://www.jintegrate.co"
+    docs["vendorurl"] = ""
     show_docs(options, docs)
 
     ##
