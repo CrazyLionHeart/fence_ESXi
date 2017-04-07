@@ -1,11 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python -tt
 
 import atexit
 import sys
 import re
 import pexpect
 import exceptions
-import logging
 sys.path.append("/usr/share/fence")
 from fencing import *
 
@@ -40,7 +39,7 @@ def get_list(conn, options):
 def get_power_status(conn, options):
     action = "vim-cmd vmsvc/power.getstate `vim-cmd vmsvc/getallvms | grep '^[0-9]\+ \+" + options[
         "--plug"] + " ' | awk '{ print $1 }'`"
-
+    
     conn.send_eol(action + " " + options["--plug"])
     conn.log_expect(
         options, options["--command-prompt"], int(options["--shell-timeout"]))
@@ -63,7 +62,7 @@ def set_power_status(conn, options):
         'off': "vim-cmd vmsvc/power.off `vim-cmd vmsvc/getallvms| grep '^[0-9]\+ \+" + options["--plug"] + " ' | awk '{ print $1 }'`",
         'reboot': "vim-cmd vmsvc/power.reset `vim-cmd vmsvc/getallvms | grep '^[0-9]\+ \+" + options["--plug"] + " ' | awk '{ print $1 }'`"
     }[options["--action"]]
-
+    
     conn.send_eol(action + " " + options["--plug"])
     conn.log_expect(
         options, options["--command-prompt"], int(options["--power-timeout"]))
@@ -76,7 +75,7 @@ def main():
 
     all_opt["cmd_prompt"]["default"] = [":~]"]
     all_opt["secure"]["default"] = "1"
-        all_opt["ssh_options"]["default"] = "-2"
+    all_opt["ssh_options"]["default"] = "-2"
 
     options = check_input(device_opt, process_input(device_opt))
     options["eol"] = "\n"
